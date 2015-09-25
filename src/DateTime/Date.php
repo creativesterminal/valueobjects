@@ -6,7 +6,7 @@ use ValueObjects\DateTime\Exception\InvalidDateException;
 use ValueObjects\Util\Util;
 use ValueObjects\ValueObjectInterface;
 
-class Date implements ValueObjectInterface
+class Date implements ValueObjectInterface, DateFormatInterface
 {
     /** @var Year */
     protected $year;
@@ -16,6 +16,19 @@ class Date implements ValueObjectInterface
 
     /** @var MonthDay */
     protected $day;
+
+    /** @var string Date format for the export */
+    static private $dateFormat = "Y-m-d";
+
+    /**
+     * Set the date format for *all* dates
+     *
+     * @param string $format DateTime::format()
+     */
+    static public function setDateFormat($format)
+    {
+        self::$dateFormat = $format;
+    }
 
     /**
      * Returns a new Date from native year, month and day values
@@ -151,12 +164,12 @@ class Date implements ValueObjectInterface
     }
 
     /**
-     * Returns date as string in format Y-n-j
+     * Returns date as string
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->toNativeDateTime()->format('Y-n-j');
+        return $this->toNativeDateTime()->format(self::$dateFormat);
     }
 }

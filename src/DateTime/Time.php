@@ -5,7 +5,7 @@ namespace ValueObjects\DateTime;
 use ValueObjects\Util\Util;
 use ValueObjects\ValueObjectInterface;
 
-class Time implements ValueObjectInterface
+class Time implements ValueObjectInterface, DateFormatInterface
 {
     /** @var Hour */
     protected $hour;
@@ -15,6 +15,19 @@ class Time implements ValueObjectInterface
 
     /** @var Second */
     protected $second;
+
+    /** @var string Date format for the export */
+    static private $dateFormat = "H:i:s";
+
+    /**
+     * Set the date format for *all* dates
+     *
+     * @param string $format DateTime::format()
+     */
+    static public function setDateFormat($format)
+    {
+        self::$dateFormat = $format;
+    }
 
     /**
      * Returns a nee Time object from native int hour, minute and second
@@ -152,12 +165,12 @@ class Time implements ValueObjectInterface
     }
 
     /**
-     * Returns time as string in format G:i:s
+     * Returns time as string
      *
      * @return string
      */
     public function __toString()
     {
-        return $this->toNativeDateTime()->format('G:i:s');
+        return $this->toNativeDateTime()->format(self::$dateFormat);
     }
 }
