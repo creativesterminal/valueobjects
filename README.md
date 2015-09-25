@@ -1,4 +1,4 @@
-ValueObjects
+CT ValueObjects
 ============
 
 [![Build Status](https://travis-ci.org/nicolopignatelli/valueobjects.png?branch=master)](https://travis-ci.org/nicolopignatelli/valueobjects)
